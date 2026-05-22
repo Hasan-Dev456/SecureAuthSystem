@@ -26,11 +26,7 @@ A secure JavaFX authentication system connected to MySQL with password hashing a
 
 ---
 
-## Screenshots
 
-(Add screenshots here later)
-
----
 
 ## Future Improvements
 
