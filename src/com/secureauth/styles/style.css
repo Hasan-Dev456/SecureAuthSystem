@@ -1,0 +1,29 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #101827, #1f2937);
+    -fx-font-family: "Segoe UI";
+}
+
+.label {
+    -fx-text-fill: white;
+}
+
+.text-field, .password-field, .combo-box {
+    -fx-pref-width: 260px;
+    -fx-padding: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+
+.button {
+    -fx-pref-width: 260px;
+    -fx-padding: 10px;
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #2563eb;
+}
