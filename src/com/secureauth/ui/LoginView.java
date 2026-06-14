@@ -1,6 +1,7 @@
 package com.secureauth.ui;
 
 import com.secureauth.controllers.LoginController;
+import com.secureauth.models.UserSession; // Fixed Error 1: Added missing import
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ public class LoginView {
 
     public static Parent create(Stage stage) {
 
-        Label title = new Label("Secure Login");
+        Label title = new Label("Secure Ticket Login");
         title.setStyle("-fx-font-size: 26px; -fx-font-weight: bold;");
 
         TextField usernameField = new TextField();
@@ -26,30 +27,45 @@ public class LoginView {
         Button registerPageButton = new Button("Create Account");
 
         Label message = new Label();
+        message.setStyle("-fx-text-fill: #ef4444;");
 
         loginButton.setOnAction(e -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            boolean success = LoginController.loginUser(username, password);
+            if (username.isEmpty() || password.isEmpty()) {
+                message.setText("Please fill out all fields.");
+                return;
+            }
 
-            if (success) {
-                Scene dashboardScene = new Scene(DashboardView.create(username), 450, 300);
+            String role = LoginController.loginUser(username, password);
+
+            if (role != null) {
+                // Initialize active tracking session context
+                UserSession.startSession(1, username, role);
+
+                Scene dashboardScene = new Scene(DashboardView.create(username, role), 650, 550);
+
+                // Fixed Error 2: Changed from getClass() to LoginView.class
                 dashboardScene.getStylesheets().add(
                         LoginView.class.getResource("/com/secureauth/styles/style.css").toExternalForm()
                 );
+
                 stage.setScene(dashboardScene);
             } else {
-                message.setText("Invalid username or password");
+                message.setText("Invalid username or password.");
             }
         });
 
         registerPageButton.setOnAction(e -> {
             Scene registerScene = new Scene(RegisterView.create(stage), 400, 500);
+
+            // Fixed Error 2: Changed from getClass() to LoginView.class
             registerScene.getStylesheets().add(
                     LoginView.class.getResource("/com/secureauth/styles/style.css").toExternalForm()
             );
-            stage.setScene(registerScene);        });
+            stage.setScene(registerScene);
+        });
 
         VBox root = new VBox(15, title, usernameField, passwordField, loginButton, registerPageButton, message);
         root.setPadding(new Insets(40));

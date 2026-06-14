@@ -27,8 +27,8 @@ public class RegisterView {
         passwordField.setPromptText("Password");
 
         ComboBox<String> roleBox = new ComboBox<>();
-        roleBox.getItems().addAll("USER", "ADMIN");
-        roleBox.setValue("USER");
+        roleBox.getItems().addAll("EMPLOYEE", "TECHNICIAN", "ADMIN");
+        roleBox.setValue("EMPLOYEE");
 
         Button registerButton = new Button("Register");
         Button backButton = new Button("Back to Login");
